@@ -1,9 +1,44 @@
 using System;
 
-class Program
+namespace Prep3
 {
-    static void Main(string[] args)
+    class Program
     {
-        Console.WriteLine("Hello Prep3 World!");
+        static void Main(string[] args)
+        {
+            // Generate a random magic number
+            Random randomGenerator = new Random();
+            int magicNumber = randomGenerator.Next(1, 101);
+
+            // Ask the user for their first guess
+            Console.Write("What is your guess? ");
+            int guess = int.Parse(Console.ReadLine());
+            int NumGuess = 0;
+            NumGuess++;
+
+
+            // Keep guessing until the answer is correct
+            while (guess != magicNumber)
+            {
+                if (guess<magicNumber)
+                {
+                    Console.WriteLine("Higher");
+                }
+                else
+                {
+                    Console.WriteLine("Lower");
+                }
+
+                Console.Write("What is your guess? ");
+                guess = int.Parse(Console.ReadLine());
+                NumGuess++;
+            }
+
+            // The user guessed correctly
+            Console.WriteLine("You guessed it!");
+            
+            // How many times user guessed
+            Console.WriteLine($"You made {NumGuess} guesses.");
+        }
     }
 }
