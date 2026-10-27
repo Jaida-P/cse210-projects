@@ -13,7 +13,7 @@ namespace Prep3
             // Ask the user for their first guess
             Console.Write("What is your guess? ");
             int guess = int.Parse(Console.ReadLine());
-            int NumGuess = 0;
+                        int NumGuess = 0;
             NumGuess++;
 
 

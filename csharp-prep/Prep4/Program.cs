@@ -1,51 +1,43 @@
 using System;
+using System.Collections.Generic;
 
-        {
-            Console.WriteLine("List some things you are grateful for.");
-        }
-    }
-
-    class Program
+class Program
+{
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        List<int> num = new List<int>();
+
+        Console.WriteLine("Enter a list of numbers. Type 0 when finished.");
+        int number = 1;
+        while (number !=0)
         {
-            Console.WriteLine("Mindfulness Program");
-            Console.WriteLine();
-
-            Console.WriteLine("1. Breathing Activity");
-            Console.WriteLine("2. Reflection Activity");
-            Console.WriteLine("3. Listing Activity");
-            Console.Write("Choose an activity: ");
-
-            string choice = Console.ReadLine();
-
-            Console.Write("How long would you like to do it? ");
-            int duration = int.Parse(Console.ReadLine());
-
-            Activity activity;
-
-            if (choice == "1")
+            Console.WriteLine("Enter number: ");
+            string user = Console.ReadLine();
+            number = int.Parse(user);
+            if (number !=0)
             {
-                activity = new BreathingActivity(duration);
+                num.Add(number);
             }
-            else if (choice == "2")
-            {
-                activity = new ReflectionActivity(duration);
-            }
-            else
-            {
-                activity = new ListingActivity(duration);
-            }
-
-            Console.WriteLine();
-            activity.Start();
-
-            Console.WriteLine($"Duration: {duration} seconds");
-
-            activity.End();
-
-            Console.WriteLine();
-            Console.WriteLine("Thanks for using the program!");
         }
+        int sum = 0;
+
+        foreach(int n in num)
+        {
+            sum = sum+n;
+        } 
+
+        Console.WriteLine($"Sum equals: {sum}");
+        double avg = (double)sum/num.Count;
+        Console.WriteLine($"The average is: {avg}");
+        int largest =num[0];
+        
+        foreach(int n in num)
+        {
+            if (n>largest)
+            {
+                largest = n;
+            }
+        }
+        Console.WriteLine($"The largest number is: {largest}");
     }
 }
