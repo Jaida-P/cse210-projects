@@ -40,54 +40,116 @@ public class CharacterCreator
 // Character
 public class Character
 {
-    public string FirstName { get; set; } = "";
-    public string LastName { get; set; } = "";
-    public int Age { get; set; }
-    public string Title { get; set; } = "";
-    public Race Race { get; set; }
-    public CharacterStats Stats { get; set; }
-    public int Experience { get; set; }
+    public string FirstName = "";
+    public string LastName = "";
+    public int Age;
+    public string Title = "";
+    public string Race = "";
+    public int Experience;
+    public int Level = 1;
+    public string Rank = "F-";
+    public double Health;
+    public double Mana;
 
-    public string GetFullName() { return FirstName + " " + LastName; }
-    public void UpdateCharacter() { }
+    public string GetFullName()
+    {
+        return FirstName + " " + LastName;
+    }
 }
 
 // CharacterStats
-public class CharacterStats
+// 2. CharacterCreator
+public class CharacterCreator
 {
-    public int STR { get; set; }
-    public int STA { get; set; }
-    public int INT { get; set; }
-    public int DEX { get; set; }
-    public int DEF { get; set; }
-    public int WIS { get; set; }
-    public int LUC { get; set; }
-    public int AvailablePoints { get; set; }
+    public Character CurrentCharacter { get; set; }
 
-    public void AllocatePoints() { }
-    public int GetStat(string stat) { return 0; }
-    public void SetStat(string stat, int value) { }
-    public int GetTotalStats() { return 0; }
+    public void CreateCharacter()
+    {
+        CurrentCharacter = new Character();
+
+        GetCharacterInfo();
+        SelectRace();
+
+        Console.WriteLine("\nCharacter created successfully!");
+    }
+
+    public void GetCharacterInfo()
+    {
+        Console.Write("Enter first name: ");
+        CurrentCharacter.FirstName = Console.ReadLine() ?? "";
+
+        Console.Write("Enter last name: ");
+        CurrentCharacter.LastName = Console.ReadLine() ?? "";
+
+        Console.Write("Enter age: ");
+        int.TryParse(Console.ReadLine(), out int age);
+        CurrentCharacter.Age = age;
+
+        Console.Write("Enter title: ");
+        CurrentCharacter.Title = Console.ReadLine() ?? "";
+    }
+
+    public void SelectRace()
+    {
+        RaceManager raceManager = new RaceManager();
+
+        raceManager.LoadRaces();
+        raceManager.DisplayRaces();
+
+        Console.Write("Choose a race: ");
+        string raceName = Console.ReadLine() ?? "";
+
+        Race selectedRace = raceManager.GetRace(raceName);
+
+        if (selectedRace != null)
+        {
+            CurrentCharacter.Race = selectedRace;
+            selectedRace.ApplyBaseStats(CurrentCharacter);
+        }
+        else
+        {
+            Console.WriteLine("Race not found. Please try again.");
+            SelectRace();
+        }
+    }
 }
 
 // Race
 public class Race
 {
-    public string Name { get; set; } = "";
-    public CharacterStats BaseStats { get; set; }
+    public string Name;
+    public int STR;
+    public int STA;
+    public int INT;
+    public int DEX;
+    public int DEF;
+    public int WIS;
+    public int LUC;
 
-    public CharacterStats GetBaseStats() { return BaseStats; }
-    public void ApplyBaseStats(Character character) { }
-}
+    public Race(string name, int str, int sta, int intel,
+                int dex, int def, int wis, int luc)
+    {
+        Name = name;
+        STR = str;
+        STA = sta;
+        INT = intel;
+        DEX = dex;
+        DEF = def;
+        WIS = wis;
+        LUC = luc;
+    }
 
-// RaceManager
-public class RaceManager
-{
-    public List<Race> Races { get; set; } = new List<Race>();
-
-    public void LoadRaces() { }
-    public Race GetRace(string name) { return null; }
-    public void DisplayRaces() { }
+    public void DisplayRace()
+    {
+        Console.WriteLine("Race: " + Name);
+        Console.WriteLine("STR: " + STR);
+        Console.WriteLine("STA: " + STA);
+        Console.WriteLine("INT: " + INT);
+        Console.WriteLine("DEX: " + DEX);
+        Console.WriteLine("DEF: " + DEF);
+        Console.WriteLine("WIS: " + WIS);
+        Console.WriteLine("LUC: " + LUC);
+    }
 }
 
 // ExperienceManager
