@@ -12,11 +12,29 @@ public class Program
 // CharacterCreator
 public class CharacterCreator
 {
-    public Character CurrentCharacter { get; set; }
+    public Character CurrentCharacter;
 
-    public void CreateCharacter() { }
-    public void GetCharacterInfo() { }
-    public void SelectRace() { }
+    public void CreateCharacter()
+    {
+        CurrentCharacter = new Character();
+
+        Console.Write("First name: ");
+        CurrentCharacter.FirstName = Console.ReadLine();
+
+        Console.Write("Last name: ");
+        CurrentCharacter.LastName = Console.ReadLine();
+
+        Console.Write("Age: ");
+        CurrentCharacter.Age = int.Parse(Console.ReadLine());
+
+        Console.Write("Title: ");
+        CurrentCharacter.Title = Console.ReadLine();
+
+        Console.Write("Race: ");
+        string race = Console.ReadLine();
+
+        CurrentCharacter.Race = race;
+    }
 }
 
 // Character
